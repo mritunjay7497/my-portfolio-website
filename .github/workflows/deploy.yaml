@@ -16,10 +16,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Specify your node version here
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Disable CI environment variable
+      run: unset CI
 
       - name: Build the project
         run: npm run build
