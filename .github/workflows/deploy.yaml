@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -22,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Disable CI environment variable
-      run: unset CI
+        run: unset CI  # Corrected indentation
 
       - name: Build the project
         run: npm run build
