@@ -88,9 +88,9 @@ function NavBar() {
 
             <Nav.Item>
               <Nav.Link
-                href="https://plusx0x07.medium.com/"
-                target="_blank"
-                rel="noreferrer"
+                as={Link}
+                to="/blogs"
+                onClick={() => updateExpanded(false)}
               >
                 <ImBlog style={{ marginBottom: "2px" }} /> Blogs
               </Nav.Link>
