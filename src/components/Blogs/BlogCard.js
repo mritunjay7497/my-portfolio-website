@@ -2,7 +2,6 @@ import React from 'react';
 import CategoryPill from './BlogCategoryPill';
 
 const BlogCard = ({ blog }) => {
-    console.log(blog,'blog');
     return (
         <div className="blog-card" style={{ 
                 border: '2px solid rgb(200 0 255)',
@@ -16,7 +15,9 @@ const BlogCard = ({ blog }) => {
             <h3 id="title">{blog.title}</h3>
             <p id="created-at">{new Date(blog.pubDate).toDateString()}</p>
             <CategoryPill categories={blog.categories} />
-            <a id="blog-link" href={blog.link} target="_blank" rel="noopener noreferrer">
+            <a id="blog-link" href={blog.link} target="_blank" rel="noopener noreferrer" style={{
+                position: 'relative'
+            }}>
                 Read more
             </a>
         </div>

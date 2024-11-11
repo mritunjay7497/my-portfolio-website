@@ -14,7 +14,6 @@ const BlogParser = ({ feedUrl }) => {
                 response.data.items.forEach((item) => {
                     item.thumbnail = extractThumbnail(item.description);
                 });
-                console.log(response.data.items);
                 setBlogs(response.data.items);
             } catch (error) {
                 console.error('Error fetching the RSS feed:', error);
