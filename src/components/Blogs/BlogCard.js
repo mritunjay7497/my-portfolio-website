@@ -10,15 +10,19 @@ const BlogCard = ({ blog }) => {
                 width: "300px",
                 borderRadius: '20px',
             }}>
-            <br />
-            <img id="thumbnail" src={blog.thumbnail} alt="thumbnail" style={{ width: '100%' }} />
-            <h3 id="title">{blog.title}</h3>
-            <p id="created-at">{new Date(blog.pubDate).toDateString()}</p>
-            <CategoryPill categories={blog.categories} />
-            <a id="blog-link" href={blog.link} target="_blank" rel="noopener noreferrer" style={{
+            <a id="blog-link" href={blog.link.split("?")[0]} target="_blank" rel="noopener noreferrer" style={{
                 position: 'relative',
+                textDecoration: 'none',
             }}>
-                Read more
+            <img id="thumbnail" src={blog.thumbnail} alt="thumbnail" style={{ 
+                width: '100%',
+                border: '2px solid #689780',
+                borderRadius: '20px',
+                marginBottom: '10px',
+            }} />
+            <h3 id="title" style={{color: "white"}}>{blog.title}</h3>
+            <p id="created-at" style={{color: "white", fontWeight: "10px"}}>{new Date(blog.pubDate).toDateString()}</p>
+            <CategoryPill categories={blog.categories} />
             </a>
         </div>
     );
