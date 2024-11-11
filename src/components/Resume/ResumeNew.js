@@ -5,12 +5,18 @@ import Particle from "../Particle";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import Loader from '../Loader/Loader';
+import Preloader from '../../components/Pre';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const PdfViewer = ({ pdfUrl }) => {
   const [width, setWidth] = useState(1200);
+
+  const delayLoader = (timeout) => {
+    setTimeout(() => {
+      setLoading(false);
+    }, timeout);
+  };
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -27,11 +33,12 @@ const PdfViewer = ({ pdfUrl }) => {
       if (cachedPdf) {
         // Load from local storage if cached
         setPdfData(cachedPdf);
-        setLoading(false);
+        delayLoader(300);
       } else {
         // Fetch the PDF file
         const response = await fetch(pdfUrl);
         const blob = await response.blob();
+        delayLoader(1000);
 
         // Convert blob to base64 string
         const reader = new FileReader();
@@ -42,15 +49,8 @@ const PdfViewer = ({ pdfUrl }) => {
 
           // Store in local storage
           localStorage.setItem('resume', base64data);
-          setLoading(false);
         };
       }
-    };
-
-    const delayLoader = () => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     };
 
     loadPdf();
@@ -65,7 +65,7 @@ const PdfViewer = ({ pdfUrl }) => {
     <div>
 
       {loading ? (
-        <Loader />
+        <Preloader load={loading} />
       ) : (
         pdfData && (
           <Container fluid className="resume-section">

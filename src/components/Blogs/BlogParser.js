@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import BlogCard from './BlogCard';  
+import BlogCard from './BlogCard';
 import axios from 'axios';
 import extractThumbnail from "./Thumbnail"
-import Loader from '../Loader/Loader';
+import Preloader from '../../components/Pre';
 
 
 const BlogParser = ({ feedUrl }) => {
+
+    const delayLoader = (timeout) => {
+        setTimeout(() => {
+            setLoading(false);
+        }, timeout);
+    };
+
     const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFeed = async () => {
@@ -14,8 +22,10 @@ const BlogParser = ({ feedUrl }) => {
                 const blogsData = localStorage.getItem('blogs');
                 if (blogsData) {
                     setBlogs(JSON.parse(blogsData));
-                }else{
+                    delayLoader(300);
+                } else {
                     const response = await axios.get(`https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`);
+                    delayLoader(1000);
                     response.data.items.forEach((item) => {
                         item.thumbnail = extractThumbnail(item.description);
                     });
@@ -31,15 +41,22 @@ const BlogParser = ({ feedUrl }) => {
     }, [feedUrl]);
 
     return (
-        <div style={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
+        <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
             gap: '15px',
             justifyContent: 'center',
         }}>
-            {blogs.map((blog) => (
-                <BlogCard key={blog.guid} blog={blog} />
-            ))}
+            {loading ? (
+                <Preloader load={loading} />
+            ) : (
+                blogs.map((blog) => (
+                    <BlogCard key={blog.guid} blog={blog} />
+                ))
+                
+            )
+            }
+
         </div>
     );
 };
