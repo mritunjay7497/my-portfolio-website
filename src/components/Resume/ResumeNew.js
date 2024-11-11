@@ -27,7 +27,7 @@ const PdfViewer = ({ pdfUrl }) => {
       if (cachedPdf) {
         // Load from local storage if cached
         setPdfData(cachedPdf);
-        delayLoader();
+        setLoading(false);
       } else {
         // Fetch the PDF file
         const response = await fetch(pdfUrl);
