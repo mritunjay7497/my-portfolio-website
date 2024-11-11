@@ -3,8 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import Particle from "../Particle";
 import BlogParser from "./BlogParser";
 
-function Blogs() {
-    const mediumFeedUrl = "https://medium.com/feed/@plusx0x07";
+function Blogs({blogUrl}) {
+    
     return (
         <Container fluid className="about-section">
             <Particle />
@@ -17,7 +17,7 @@ function Blogs() {
                             <strong className="purple">Blogs</strong>
                         </h1>
                         <div className="blogs-cards">
-                            <BlogParser feedUrl={mediumFeedUrl}/>
+                            <BlogParser feedUrl={blogUrl}/>
                         </div>
                     </Col>
                 </Row>

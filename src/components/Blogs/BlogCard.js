@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
             <p id="created-at">{new Date(blog.pubDate).toDateString()}</p>
             <CategoryPill categories={blog.categories} />
             <a id="blog-link" href={blog.link} target="_blank" rel="noopener noreferrer" style={{
-                position: 'relative'
+                position: 'relative',
             }}>
                 Read more
             </a>
