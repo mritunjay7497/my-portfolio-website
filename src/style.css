@@ -493,8 +493,8 @@ button:focus {
 
 .blog-card {
   padding-top: 20px !important;
-  padding-bottom: 50px !important;
-  padding-left: 5px !important;
+  padding-bottom: 20px !important;
+  /* padding-left: 10px !important; */
   height: auto !important;
 }
 
@@ -523,13 +523,13 @@ button:focus {
 
 .card-img-top {
   padding: 20px !important;
-  opacity: 0.8 !important;
+  opacity: 0.1 !important;
   border-radius: 10px !important;
 }
 
 .blog-img {
   padding: 0px !important;
-  opacity: 0.8 !important;
+  opacity: 0.1 !important;
   border-radius: 0px !important;
 }
 
