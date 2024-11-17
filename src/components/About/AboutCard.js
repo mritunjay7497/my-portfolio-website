@@ -7,21 +7,24 @@ function AboutCard() {
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
+
           <p style={{ textAlign: "justify" }}>
-            Hi Everyone, I am <span className="purple">Mritunjay </span>
-            from <span className="purple"> Bangalore, India.</span>
-            <br />
-            I am currently employed as a software engineer at Propertyguru Group.
-            <br />
-            I have completed B.tech in ECE at BIT
-            Bangalore.
-            <br />
-            <br />
-            Apart from coding, some other activities that I love to do!
+            I am a <span className="purple">software engineer with over 3.5 years of experience</span> in backend development,
+              specializing in <span className="purple">JavaScript, TypeScript, NodeJS and Salesforce</span>.
+            <br /><br />
+            I have expertise in databases like <span className="purple">MongoDB, PostgreSQL, MySQL, and Redis</span>, focusing on implementing effective solutions to meet business needs.
+            <br /><br />
+            My goal is to deliver efficient, high-performing applications that make an impact.
+            <br /><br />
+            Apart from coding, here are some other activities that I love to do -
           </p>
+
           <ul>
             <li className="about-activity">
-              <ImPointRight /> Writing Tech Blogs
+              <ImPointRight /> <a href="/blogs" style={{textDecoration : "None", color: "white"}}>Writing Tech Blogs</a>
+            </li>
+            <li className="about-activity">
+              <ImPointRight /> Reading Books
             </li>
             <li className="about-activity">
               <ImPointRight /> Travelling

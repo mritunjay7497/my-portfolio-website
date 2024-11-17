@@ -277,19 +277,28 @@ button:focus {
 }
 
 .home-content {
-  padding: 9rem 0 2rem !important;
+  padding: 15rem 0 1rem !important;
   color: whitesmoke;
   text-align: left;
+}
+
+@media (max-width: 767px) {
+  .home-content {
+    padding: 3rem 0 1rem !important;
+    color: whitesmoke;
+    text-align: left;
+  }
 }
 
 .heading {
   font-size: 2.4em !important;
   padding-left: 50px !important;
+  padding-bottom: 15px !important;
 }
 
 .heading-name {
   font-size: 2.5em !important;
-  padding-left: 45px !important;
+  padding-left: 50px !important;
 }
 
 .main-name {
@@ -411,6 +420,8 @@ button:focus {
 .icon-colour {
   color: #700c86 !important;
 }
+
+
 
 /* --------- */
 /* Footer */
@@ -569,6 +580,30 @@ button:focus {
   color: white !important;
 }
 
+/* --------- */
+/* Blogs */
+/* --------- */
+
+.blog-section {
+  position: relative !important;
+  padding-top: 150px !important;
+  padding-bottom: 30px !important;
+  background-image: var(--section-background-color) !important;
+  color: white !important;
+}
+
+/* --------- */
+/* Books */
+/* --------- */
+
+.book-section {
+  position: relative !important;
+  padding-top: 150px !important;
+  padding-bottom: 30px !important;
+  background-image: var(--section-background-color) !important;
+  color: white !important;
+}
+
 .tech-icons {
   font-size: 4.5em !important;
   margin: 15px !important;
@@ -616,6 +651,7 @@ button:focus {
 @media (max-width: 767px) {
   .about-img {
     padding-top: 0 !important;
+    margin: auto !important;
   }
 }
 

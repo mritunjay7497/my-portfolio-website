@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Particle from "../Particle";
@@ -29,28 +29,21 @@ const PdfViewer = ({ pdfUrl }) => {
   useEffect(() => {
     const loadPdf = async () => {
       // Check if PDF is in local storage
-      const cachedPdf = localStorage.getItem('resume');
-      if (cachedPdf) {
-        // Load from local storage if cached
-        setPdfData(cachedPdf);
-        delayLoader(300);
-      } else {
-        // Fetch the PDF file
-        const response = await fetch(pdfUrl);
-        const blob = await response.blob();
-        delayLoader(1000);
+      // Fetch the PDF file
+      const response = await fetch(pdfUrl);
+      const blob = await response.blob();
+      delayLoader(1000);
 
-        // Convert blob to base64 string
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          const base64data = reader.result;
-          setPdfData(base64data);
+      // Convert blob to base64 string
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        setPdfData(base64data);
 
-          // Store in local storage
-          localStorage.setItem('resume', base64data);
-        };
-      }
+        // Store in local storage
+        localStorage.setItem('resume', base64data);
+      };
     };
 
     loadPdf();
@@ -81,7 +74,7 @@ const PdfViewer = ({ pdfUrl }) => {
                 &nbsp;Download CV
               </Button>
             </Row>
-  
+
             <Row className="resume">
               <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess} className="d-flex justify-content-center">
                 <Page pageNumber={1} scale={width > 786 ? 1.5 : 0.6} />
@@ -100,7 +93,6 @@ const PdfViewer = ({ pdfUrl }) => {
             </Row>
           </Container>
         )
-        // <Loader />
       )}
 
     </div>

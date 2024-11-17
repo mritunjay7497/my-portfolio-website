@@ -18,6 +18,7 @@ import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Constants} from "./Constants";
+import Books from "./components/Books/Books";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -42,9 +43,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume pdfUrl={Constants.RESUME_S3_URL} />} />
           <Route path="/blogs" element={<Blogs blogUrl={Constants.BLOGS_FEED_URL}/>} />
+          <Route path="/books" element={<Books />} />
           <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

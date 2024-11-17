@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
-import { ImBlog } from "react-icons/im";
+import { ImBlog,ImBooks } from "react-icons/im";
 import {
   AiOutlineHome,
   AiOutlineUser,
@@ -93,6 +93,16 @@ function NavBar() {
                 onClick={() => updateExpanded(false)}
               >
                 <ImBlog style={{ marginBottom: "2px" }} /> Blogs
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/books"
+                onClick={() => updateExpanded(false)}
+              >
+                <ImBooks style={{ marginBottom: "2px" }} /> Bookshelf
               </Nav.Link>
             </Nav.Item>
 
