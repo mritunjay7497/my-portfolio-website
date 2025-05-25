@@ -9,8 +9,8 @@ function AboutCard() {
         <blockquote className="blockquote mb-0">
 
           <p style={{ textAlign: "justify" }}>
-            I am a <span className="purple">software engineer with over 3.5 years of experience</span> in backend development,
-              specializing in <span className="purple">JavaScript, TypeScript, NodeJS and Salesforce</span>.
+            I am a <span className="purple">software engineer with 4 years of experience</span> in backend development,
+              specializing in <span className="purple">JavaScript, TypeScript, NodeJS, Salesforce, Java, Spring-Boot</span>.
             <br /><br />
             I have expertise in databases like <span className="purple">MongoDB, PostgreSQL, MySQL, and Redis</span>, focusing on implementing effective solutions to meet business needs.
             <br /><br />
