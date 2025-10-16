@@ -11,6 +11,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const PdfViewer = ({ pdfUrl }) => {
   const [width, setWidth] = useState(1200);
+  const [numPages, setNumPages] = useState(null);
+  const [pdfData, setPdfData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const delayLoader = (timeout) => {
     setTimeout(() => {
@@ -22,13 +25,8 @@ const PdfViewer = ({ pdfUrl }) => {
     setWidth(window.innerWidth);
   }, []);
 
-  const [numPages, setNumPages] = useState(1);
-  const [pdfData, setPdfData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const loadPdf = async () => {
-      // Check if PDF is in local storage
       // Fetch the PDF file
       const response = await fetch(pdfUrl);
       const blob = await response.blob();
@@ -40,9 +38,6 @@ const PdfViewer = ({ pdfUrl }) => {
       reader.onloadend = () => {
         const base64data = reader.result;
         setPdfData(base64data);
-
-        // Store in local storage
-        localStorage.setItem('resume', base64data);
       };
     };
 
@@ -53,10 +48,8 @@ const PdfViewer = ({ pdfUrl }) => {
     setNumPages(numPages);
   };
 
-
   return (
     <div>
-
       {loading ? (
         <Preloader load={loading} />
       ) : (
@@ -77,9 +70,16 @@ const PdfViewer = ({ pdfUrl }) => {
 
             <Row className="resume">
               <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess} className="d-flex justify-content-center">
-                <Page pageNumber={1} scale={width > 786 ? 1.5 : 0.6} />
+                {Array.from(new Array(numPages), (el, index) => (
+                  <Page
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                    scale={width > 786 ? 1.5 : 0.6}
+                  />
+                ))}
               </Document>
             </Row>
+
             <Row style={{ justifyContent: "center", position: "relative" }}>
               <Button
                 variant="primary"
@@ -94,11 +94,8 @@ const PdfViewer = ({ pdfUrl }) => {
           </Container>
         )
       )}
-
     </div>
   );
 };
-
-
 
 export default PdfViewer;
