@@ -22,7 +22,7 @@ const PdfViewer = ({ pdfUrl }) => {
     setWidth(window.innerWidth);
   }, []);
 
-  const [numPages, setNumPages] = useState(null);
+  const [numPages, setNumPages] = useState(1);
   const [pdfData, setPdfData] = useState(null);
   const [loading, setLoading] = useState(true);
 
