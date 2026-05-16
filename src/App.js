@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useState, createContext } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import {
+  HashRouter,
   BrowserRouter as Router,
   Route,
   Routes,
@@ -32,10 +33,13 @@ const PageLoader = () => (
 
 function App() {
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const isGitHubPages = window.location.hostname === "mritunjay7497.github.io";
+  const RouterComponent = isGitHubPages ? HashRouter : Router;
+  const routerProps = !isGitHubPages && process.env.PUBLIC_URL ? { basename: process.env.PUBLIC_URL } : {};
 
   return (
     <LoadingContext.Provider value={{ setIsDataLoading }}>
-      <Router>
+      <RouterComponent {...routerProps}>
         <div className="App app-shell">
           <Navbar />
           <ScrollToTop />
@@ -55,7 +59,7 @@ function App() {
           </main>
           <Footer />
         </div>
-      </Router>
+      </RouterComponent>
     </LoadingContext.Provider>
   );
 }
