@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import BlogCard from './BlogCard';
-import axios from 'axios';
 import extractThumbnail from "./Thumbnail"
 import InsightLoader from "../InsightLoader";
 import FetchErrorCard from "../FetchErrorCard";
+import { enrichBlog, estimateReadingTime, fetchBlogsFromFeed } from "./blogUtils";
 
 const MIN_LOADER_VISIBLE_MS = 3000;
 const SUCCESS_PHASE_MS = 750;
@@ -23,13 +23,15 @@ const BlogParser = ({ feedUrl }) => {
                 setHasError(false);
                 setPhase("loading");
                 loadStartedAtRef.current = Date.now();
-                const response = await axios.get(`https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`);
-                const items = response?.data?.items || [];
+                const items = await fetchBlogsFromFeed(feedUrl);
 
-                items.forEach((item) => {
-                    item.thumbnail = extractThumbnail(item.description || "");
-                });
-                setBlogs(items);
+                const enrichedBlogs = items.map((item) => ({
+                    ...enrichBlog(item),
+                    thumbnail: extractThumbnail(item.description || ""),
+                    readingTimeMinutes: estimateReadingTime(item.content || item.description || "")
+                }));
+
+                setBlogs(enrichedBlogs);
 
                 if (successTimerRef.current) {
                     window.clearTimeout(successTimerRef.current);

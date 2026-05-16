@@ -13,6 +13,7 @@ import "./style.css";
 import "./App.css";
 import { Constants } from "./Constants";
 import Books from "./components/Books/Books";
+import BlogArticle from "./components/Blogs/BlogArticle";
 
 const Home = lazy(() => import("./components/Home/Home"));
 const About = lazy(() => import("./components/About/About"));
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 {/* <Route path="/resume" element={<Resume pdfUrl={Constants.RESUME_S3_URL} />} /> */}
                 <Route path="/blogs" element={<Blogs blogUrl={Constants.BLOGS_FEED_URL} />} />
+                <Route path="/blogs/:articleId" element={<BlogArticle feedUrl={Constants.BLOGS_FEED_URL} />} />
                 <Route path="/books" element={<Books />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

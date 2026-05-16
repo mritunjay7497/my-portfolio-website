@@ -98,9 +98,9 @@ function Home() {
                 and dependable under pressure.
               </h1>
               <p className="home-summary">
-                I&apos;m Mritunjay Kumar Mani, a software engineer with 4 years of
-                experience building backend-heavy products across Node.js,
-                TypeScript, Java, Spring Boot, Salesforce, and data-intensive
+                I&apos;m Mritunjay Kumar Mani, a software engineer with 5+ years of
+                experience building backend-heavy products across Java,
+                Java, Spring Boot, NodeJS, Typescript, Salesforce, and data-intensive
                 workflows.
               </p>
               <div className="home-rotator">
