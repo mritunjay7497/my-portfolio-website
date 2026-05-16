@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 import { ImPointRight } from "react-icons/im";
 
 function AboutCard() {
@@ -7,34 +8,39 @@ function AboutCard() {
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
-
-          <p style={{ textAlign: "justify" }}>
-            I am a <span className="purple">software engineer with 4 years of experience</span> in backend development,
-              specializing in <span className="purple">JavaScript, TypeScript, NodeJS, Salesforce, Java, Spring-Boot</span>.
-            <br /><br />
-            I have expertise in databases like <span className="purple">MongoDB, PostgreSQL, MySQL, and Redis</span>, focusing on implementing effective solutions to meet business needs.
-            <br /><br />
-            My goal is to deliver efficient, high-performing applications that make an impact.
-            <br /><br />
-            Apart from coding, here are some other activities that I love to do -
+          <p className="about-card-copy">
+            I&apos;m a <span className="purple">software engineer with 5+ years of experience</span> focused
+            on backend development, integration-heavy systems, and maintainable
+            delivery.
           </p>
 
-          <ul>
+          <p className="about-card-copy">
+            My day-to-day strengths sit across <span className="purple">Java,
+            Spring Boot, Node.js and TypeScript</span>, with practical experience designing
+            and supporting systems backed by <span className="purple">PostgreSQL, MySQL, MongoDB,
+            Redis and Kafka</span>.
+          </p>
+
+          <p className="about-card-copy">
+            I care about software that feels calm in production: clear contracts,
+            reliable workflows, better debugging surfaces, and codebases that stay
+            approachable for the next engineer.
+          </p>
+
+          <ul className="about-activity-list">
             <li className="about-activity">
-              <ImPointRight /> <a href="/blogs" style={{textDecoration : "None", color: "white"}}>Writing Tech Blogs</a>
+              <ImPointRight /> API and integration design with readable service boundaries
             </li>
             <li className="about-activity">
-              <ImPointRight /> Reading Books
+              <ImPointRight /> Data modeling and persistence decisions grounded in product behavior
             </li>
             <li className="about-activity">
-              <ImPointRight /> Travelling
+              <ImPointRight /> Observability, debugging, and production issue resolution
+            </li>
+            <li className="about-activity">
+              <ImPointRight /> Technical writing through <Link to="/blogs" className="about-link">blogs and notes</Link>
             </li>
           </ul>
-
-          {/* <p style={{ color: "rgb(155 126 172)" }}>
-            "Strive to build things that make a difference!"{" "}
-          </p>
-          <footer className="blockquote-footer">Soumyajit</footer> */}
         </blockquote>
       </Card.Body>
     </Card>

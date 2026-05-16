@@ -1,29 +1,28 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+import { FiArrowUpRight } from "react-icons/fi";
 import CategoryPill from './BlogCategoryPill';
 
 const BlogCard = ({ blog }) => {
     return (
-        <div className="blog-card" style={{ 
-                border: '2px solid rgb(200 0 255)',
-                padding: '20px', 
-                margin: '15px', 
-                width: "300px",
-                borderRadius: '20px',
-            }}>
-            <a id="blog-link" href={blog.link.split("?")[0]} target="_blank" rel="noopener noreferrer" style={{
-                position: 'relative',
-                textDecoration: 'none',
-            }}>
-            <img id="thumbnail" src={blog.thumbnail} alt="thumbnail" style={{ 
-                width: '100%',
-                border: '2px solid #689780',
-                borderRadius: '20px',
-                marginBottom: '10px',
-            }} />
-            <h3 id="title" style={{color: "white"}}>{blog.title}</h3>
-            <p id="created-at" style={{color: "white", fontWeight: "10px"}}>{new Date(blog.pubDate).toDateString()}</p>
-            <CategoryPill categories={blog.categories} />
-            </a>
+        <div className="blog-card">
+            <Link
+                className="blog-link"
+                to={`/blogs/${blog.articleId}`}
+            >
+                <img className="blog-thumbnail" src={blog.thumbnail} alt="thumbnail" />
+                <div className="blog-card-meta">
+                    <span className="blog-card-kicker">Article</span>
+                    <span className="blog-card-readtime">{blog.readingTimeMinutes} min read</span>
+                </div>
+                <h3 className="blog-title">{blog.title}</h3>
+                <p className="blog-date">{new Date(blog.pubDate).toDateString()}</p>
+                <CategoryPill categories={blog.categories} />
+                <div className="blog-card-footer">
+                    <span>Read on site</span>
+                    <FiArrowUpRight />
+                </div>
+            </Link>
         </div>
     );
 };

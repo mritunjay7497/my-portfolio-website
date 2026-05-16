@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Particle from "../Particle";
-import Github from "./Github";
 import Techstack from "./Techstack";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../../Assets/about.png";
@@ -12,35 +11,35 @@ function About() {
     <Container fluid className="about-section">
       <Particle />
       <Container>
-        <Row style={{ justifyContent: "center" }}>
-          <Col
-            md={7}
-            style={{
-              justifyContent: "center",
-              paddingBottom: "60px",
-            }}
-          >
+        <div className="about-section-header">
+          <span className="section-kicker">About</span>
+          <h1 className="section-heading">
+            Backend engineering with product awareness, delivery discipline, and
+            strong debugging instincts.
+          </h1>
+          <p className="about-lead">
+            I enjoy translating ambiguous requirements into APIs, workflows, and
+            data models that are easier for teams to ship, reason about, and
+            support over time.
+          </p>
+        </div>
+
+        <Row className="align-items-center justify-content-center g-4 about-hero-row">
+          <Col md={7}>
             <Aboutcard />
           </Col>
-          <Col
-            md={5}
-            className="about-img"
-          >
-            <img src={laptopImg} alt="about" className="img-fluid" />
+          <Col md={5} className="about-img">
+            <div className="about-illustration-shell">
+              <img src={laptopImg} alt="Backend engineering illustration" className="img-fluid" />
+            </div>
           </Col>
         </Row>
-        <h1 className="project-heading">
-          Professional <strong className="purple">Skillset </strong>
-        </h1>
 
+        <h2 className="project-heading">Core Engineering Stack</h2>
         <Techstack />
 
-        <h1 className="project-heading">
-          <strong className="purple">Tools</strong> I use
-        </h1>
+        <h2 className="project-heading">Tooling and Workflow</h2>
         <Toolstack />
-
-        {/* <Github /> */}
       </Container>
     </Container>
   );

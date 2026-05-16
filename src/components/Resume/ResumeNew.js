@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Particle from "../Particle";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import Preloader from '../../components/Pre';
+import InsightLoader from "../InsightLoader";
+import FetchErrorCard from "../FetchErrorCard";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+const MIN_LOADER_VISIBLE_MS = 3000;
+const SUCCESS_PHASE_MS = 800;
 
 const PdfViewer = ({ pdfUrl }) => {
   const [width, setWidth] = useState(1200);
   const [numPages, setNumPages] = useState(null);
   const [pdfData, setPdfData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const delayLoader = (timeout) => {
-    setTimeout(() => {
-      setLoading(false);
-    }, timeout);
-  };
+  const [phase, setPhase] = useState("loading"); // loading | success | ready | error
+  const [hasError, setHasError] = useState(false);
+  const loadStartedAtRef = useRef(0);
+  const successTimerRef = useRef(null);
+  const readyTimerRef = useRef(null);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -27,21 +28,58 @@ const PdfViewer = ({ pdfUrl }) => {
 
   useEffect(() => {
     const loadPdf = async () => {
-      // Fetch the PDF file
-      const response = await fetch(pdfUrl);
-      const blob = await response.blob();
-      delayLoader(1000);
+      try {
+        setHasError(false);
+        setPhase("loading");
+        loadStartedAtRef.current = Date.now();
 
-      // Convert blob to base64 string
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        const base64data = reader.result;
+        const response = await fetch(pdfUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const blob = await response.blob();
+
+        const base64data = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error("FileReader error"));
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+
         setPdfData(base64data);
-      };
+
+        if (successTimerRef.current) {
+          window.clearTimeout(successTimerRef.current);
+        }
+        if (readyTimerRef.current) {
+          window.clearTimeout(readyTimerRef.current);
+        }
+
+        const elapsedMs = Date.now() - loadStartedAtRef.current;
+        const remainingLoaderMs = Math.max(0, MIN_LOADER_VISIBLE_MS - elapsedMs);
+
+        successTimerRef.current = window.setTimeout(() => {
+          setPhase("success");
+          readyTimerRef.current = window.setTimeout(() => setPhase("ready"), SUCCESS_PHASE_MS);
+        }, remainingLoaderMs);
+      } catch (error) {
+        console.error("Error fetching the PDF:", error);
+        setHasError(true);
+        setPhase("error");
+      }
     };
 
     loadPdf();
+
+    return () => {
+      if (successTimerRef.current) {
+        window.clearTimeout(successTimerRef.current);
+      }
+      if (readyTimerRef.current) {
+        window.clearTimeout(readyTimerRef.current);
+      }
+    };
   }, [pdfUrl]);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -49,18 +87,26 @@ const PdfViewer = ({ pdfUrl }) => {
   };
 
   return (
-    <div>
-      {loading ? (
-        <Preloader load={loading} />
+    <Container fluid className="resume-section">
+      <Particle />
+      {hasError ? (
+        <FetchErrorCard
+          title="Could not fetch the resume PDF."
+          message="The document endpoint is unavailable right now. You can still open the resume directly."
+          href={pdfUrl}
+          hrefLabel="Open resume PDF"
+        />
+      ) : phase !== "ready" ? (
+        <InsightLoader phase={phase === "success" ? "success" : "loading"} label="Fetching resume" />
       ) : (
         pdfData && (
-          <Container fluid className="resume-section">
-            <Particle />
+          <>
             <Row style={{ justifyContent: "center", position: "relative" }}>
               <Button
                 variant="primary"
                 href={pdfUrl}
                 target="_blank"
+                rel="noreferrer"
                 style={{ maxWidth: "250px" }}
               >
                 <AiOutlineDownload />
@@ -85,16 +131,17 @@ const PdfViewer = ({ pdfUrl }) => {
                 variant="primary"
                 href={pdfUrl}
                 target="_blank"
+                rel="noreferrer"
                 style={{ maxWidth: "250px" }}
               >
                 <AiOutlineDownload />
                 &nbsp;Download CV
               </Button>
             </Row>
-          </Container>
+          </>
         )
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -6,30 +6,39 @@ function Particle() {
     <Particles
       id="tsparticles"
       params={{
+        background: {
+          color: {
+            value: "transparent",
+          },
+        },
         particles: {
           number: {
-            value: 160,
+            value: 55,
             density: {
               enable: true,
-              value_area: 1500,
+              value_area: 1200,
             },
+          },
+          color: {
+            value: ["#67e8c8", "#8ea6ff", "#f6b561"],
           },
           line_linked: {
             enable: false,
-            opacity: 0.03,
+            opacity: 0.02,
           },
           move: {
             direction: "right",
-            speed: 0.05,
+            speed: 0.12,
           },
           size: {
-            value: 1,
+            value: 1.2,
           },
           opacity: {
+            value: 0.16,
             anim: {
               enable: true,
-              speed: 1,
-              opacity_min: 0.05,
+              speed: 0.6,
+              opacity_min: 0.06,
             },
           },
         },

@@ -1,8 +1,19 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+jest.mock("./components/Particle", () => () => null);
+
+beforeAll(() => {
+  window.scrollTo = jest.fn();
+});
+
+test("renders navigation and backend-focused hero copy", async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  expect(screen.getByRole("navigation")).toBeInTheDocument();
+  expect(
+    await screen.findByRole("heading", {
+      name: /I build backend systems that stay understandable under growth/i
+    })
+  ).toBeInTheDocument();
 });
