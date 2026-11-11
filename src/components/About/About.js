@@ -11,35 +11,31 @@ function About() {
     <Container fluid className="about-section">
       <Particle />
       <Container>
-        <div className="about-section-header">
+        {/* Minimal intro */}
+        <div className="about-intro">
           <span className="section-kicker">About</span>
-          <h1 className="section-heading">
-            Backend engineering with product awareness, delivery discipline, and
-            strong debugging instincts.
+          <h1 className="section-heading-minimal">
+            Backend systems, built with purpose.
           </h1>
-          <p className="about-lead">
-            I enjoy translating ambiguous requirements into APIs, workflows, and
-            data models that are easier for teams to ship, reason about, and
-            support over time.
-          </p>
         </div>
 
-        <Row className="align-items-center justify-content-center g-4 about-hero-row">
-          <Col md={7}>
+        {/* Two-column layout: content + illustration */}
+        <Row className="align-items-center g-4 about-hero-row">
+          <Col md={6}>
             <Aboutcard />
           </Col>
-          <Col md={5} className="about-img">
+          <Col md={6} className="about-img">
             <div className="about-illustration-shell">
               <img src={laptopImg} alt="Backend engineering illustration" className="img-fluid" />
             </div>
           </Col>
         </Row>
 
-        <h2 className="project-heading">Core Engineering Stack</h2>
-        <Techstack />
-
-        <h2 className="project-heading">Tooling and Workflow</h2>
-        <Toolstack />
+        {/* Simplified tech stack sections */}
+        <div className="tech-stack-simple">
+          <Techstack />
+          <Toolstack />
+        </div>
       </Container>
     </Container>
   );

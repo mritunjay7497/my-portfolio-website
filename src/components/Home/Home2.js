@@ -29,48 +29,30 @@ const socialLinks = [
 
 function Home2() {
   return (
-    <Container fluid className="home-about-section" id="connect">
-      <Container className="signal-strip">
-        <Row className="align-items-center g-4">
-          <Col lg={7}>
-            <span className="section-kicker">Signals beyond the homepage</span>
-            <h2 className="section-heading">
-              I write, read, and keep refining how systems are documented,
-              debugged, and operated.
-            </h2>
-            <p className="section-intro">
-              If you want a better sense of how I think, the best follow-up is my
-              writing, resume, and the way I frame backend work around clarity and
-              reliability instead of buzzwords.
+    <Container fluid className="home-connect" id="connect">
+      <Container>
+        <Row className="justify-content-center">
+          <Col lg={8} className="text-center">
+            <span className="section-kicker">Connect</span>
+            <h3 className="section-heading-minimal">
+              Systems, tools, and technical writing
+            </h3>
+            <p className="hero-subtitle">
+              For code, writing, and discussions around backend architecture.
             </p>
-            <div className="signal-actions">
-              <Link to="/blogs" className="signal-link">
-                Explore blogs
-              </Link>
-              <Link to="/books" className="signal-link">
-                Open bookshelf
-              </Link>
-            </div>
-          </Col>
-
-          <Col lg={5}>
-            <div className="social-panel">
-              <span className="board-label">Connect</span>
-              <ul className="social-grid">
-                {socialLinks.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="social-link-card"
-                    >
-                      <span className="social-link-icon">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            <div className="connect-links">
+              {socialLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="connect-link"
+                >
+                  <span className="connect-icon">{item.icon}</span>
+                  <span>{item.label}</span>
+                </a>
+              ))}
             </div>
           </Col>
         </Row>
